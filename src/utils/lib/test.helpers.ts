@@ -2,7 +2,7 @@ import { MatcherOptions, fireEvent, screen } from "@testing-library/react";
 
 class TestHelpers {
   // Getters
-  public getElementByText(text: string, options?: MatcherOptions) {
+  public getElementByText(text: string | RegExp, options?: MatcherOptions) {
     return screen.getByText(text, options);
   }
 
