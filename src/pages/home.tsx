@@ -2,13 +2,22 @@ import React from "react";
 import { Post } from "../utils/lib/services/types";
 import PostPreview from "../components/post.preview";
 import useGetPosts from "../utils/hooks/posts/useGetPosts";
+import useDebounce from "../utils/hooks/useDebounce";
 
 const HomePage = () => {
+  const [keyword, setKeyword] = React.useState("");
+  const debouncedKeyword = useDebounce({ initialValue: keyword, delay: 500 });
   const { posts, error, loading } = useGetPosts<Post[]>();
   const [pagination, setPagination] = React.useState({
     start: 0,
     limit: 10,
   });
+
+  const allPosts = React.useMemo(() => {
+    return posts.filter(post =>
+      post.title.toLowerCase().includes(debouncedKeyword.toLowerCase())
+    );
+  }, [debouncedKeyword, posts]);
 
   const handlePagination = (type: "next" | "prev") => {
     switch (type) {
@@ -39,13 +48,21 @@ const HomePage = () => {
   };
 
   if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
 
   return (
     <div>
       <h3 className="font-bold text-xl">All Blogs</h3>
+      <input
+        type="text"
+        value={keyword}
+        placeholder="Search for a blog..."
+        onChange={e => setKeyword(e.target.value)}
+        className="w-full my-4 border-[1px] border-gray-300 p-2 rounded-sm"
+      />
 
       <div className="post-container">
-        {posts.slice(pagination.start, pagination.limit).map(post => (
+        {allPosts.slice(pagination.start, pagination.limit).map(post => (
           <PostPreview key={post.id} post={post} />
         ))}
       </div>

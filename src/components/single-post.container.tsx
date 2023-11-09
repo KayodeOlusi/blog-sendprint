@@ -1,8 +1,8 @@
 import SingleComment from "./comment";
 import CreateCommentForm from "./create-comment.form";
+import { DataBuilders } from "../utils/lib/data.builders";
 import { Comment, Post } from "../utils/lib/services/types";
 import useGetComments from "../utils/hooks/comments/useGetComment";
-import { DataBuilders } from "../utils/lib/data.builders";
 
 type Props = {
   post: Post;
