@@ -12,6 +12,12 @@ function App() {
         {
           index: true,
           element: <HomePage />,
+          errorElement: <div>404</div>,
+        },
+        {
+          path: "/post/:id",
+          errorElement: <div>404</div>,
+          element: <div>SinglePostPage</div>,
         },
       ],
     },

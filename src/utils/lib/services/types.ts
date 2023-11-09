@@ -9,3 +9,9 @@ export type Post = {
   title: string;
   body: string;
 };
+
+export type PostsState<K> = {
+  posts: K;
+  loading: boolean;
+  error: string;
+};

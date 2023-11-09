@@ -2,15 +2,19 @@ import React from "react";
 import { PostsService } from "../../lib/services/posts";
 import { PostsState } from "../../lib/services/types";
 
-const useGetPosts = <T,>() => {
+type Props = {
+  id: string;
+};
+
+const useGetSinglePost = <T,>({ id }: Props) => {
   const [postsState, setPostsState] = React.useState<PostsState<T>>({
-    posts: [] as T,
-    loading: true,
+    posts: {} as T,
+    loading: false,
     error: "",
   });
 
-  const fetchPosts = async () => {
-    await PostsService.getPosts({
+  const fetchPost = React.useCallback(async () => {
+    await PostsService.getSinglePost(id, {
       onSuccess(data) {
         setPostsState({
           posts: data as T,
@@ -18,21 +22,21 @@ const useGetPosts = <T,>() => {
           error: "",
         });
       },
-      onError(error) {
+      onError() {
         setPostsState({
-          posts: [] as T,
+          posts: {} as T,
           loading: false,
-          error: "Error fetching posts. Please try again later.",
+          error: "Error fetching post. Please try again later.",
         });
       },
     });
-  };
+  }, [id]);
 
   React.useEffect(() => {
-    fetchPosts();
-  }, []);
+    fetchPost();
+  }, [fetchPost]);
 
   return { ...postsState };
 };
 
-export default useGetPosts;
+export default useGetSinglePost;

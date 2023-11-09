@@ -13,4 +13,16 @@ export class PostsService {
       return error;
     }
   }
+
+  static async getSinglePost(id: string, options?: ServiceOptions) {
+    try {
+      const post = await httpClient.get<Post>(`/post/${id}`);
+      options?.onSuccess?.(post);
+
+      return post;
+    } catch (error) {
+      options?.onError?.(error);
+      return error;
+    }
+  }
 }
