@@ -1,15 +1,31 @@
 import SingleComment from "./comment";
+import CreateCommentForm from "./create-comment.form";
 import { Comment, Post } from "../utils/lib/services/types";
 import useGetComments from "../utils/hooks/comments/useGetComment";
+import { DataBuilders } from "../utils/lib/data.builders";
 
 type Props = {
   post: Post;
 };
 
 const SinglePostContainer = ({ post }: Props) => {
-  const { comments, error, loading } = useGetComments<Comment[]>({
+  const { comments, error, loading, setCommentState } = useGetComments<
+    Comment[]
+  >({
     id: post.id.toString(),
   });
+
+  const onSubmitCommentForm =
+    (comment: string) => (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      if (!comment.length) return;
+
+      const newComment = DataBuilders.generateNewPostComment(comment, post.id);
+      return setCommentState(prevState => ({
+        ...prevState,
+        comments: [...prevState.comments, newComment],
+      }));
+    };
 
   return (
     <div>
@@ -37,6 +53,9 @@ const SinglePostContainer = ({ post }: Props) => {
             <SingleComment key={comment.id} comment={comment} />
           ))}
         </div>
+      </div>
+      <div className="mt-6">
+        <CreateCommentForm onSubmit={onSubmitCommentForm} />
       </div>
     </div>
   );

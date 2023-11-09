@@ -12,18 +12,18 @@ const useGetPosts = <T,>() => {
   const fetchPosts = async () => {
     await PostsService.getPosts({
       onSuccess(data) {
-        setPostsState({
+        setPostsState(prev => ({
+          ...prev,
           posts: data as T,
           loading: false,
-          error: "",
-        });
+        }));
       },
       onError(error) {
-        setPostsState({
-          posts: [] as T,
+        setPostsState(prev => ({
+          ...prev,
           loading: false,
           error: "Error fetching posts. Please try again later.",
-        });
+        }));
       },
     });
   };

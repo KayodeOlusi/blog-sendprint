@@ -14,29 +14,31 @@ const useGetComments = <T,>({ id }: Props) => {
   });
 
   const fetchComments = React.useCallback(async () => {
-    await PostsService.getPostComments(id, {
-      onSuccess(data) {
-        setCommentState({
-          comments: data as T,
-          loading: false,
-          error: "",
-        });
-      },
-      onError(error) {
-        setCommentState({
-          comments: [] as T,
-          loading: false,
-          error: "Error fetching comments. Please try again later.",
-        });
-      },
-    });
+    if (id) {
+      await PostsService.getPostComments(id, {
+        onSuccess(data) {
+          setCommentState({
+            comments: data as T,
+            loading: false,
+            error: "",
+          });
+        },
+        onError(error) {
+          setCommentState({
+            comments: [] as T,
+            loading: false,
+            error: "Error fetching comments. Please try again later.",
+          });
+        },
+      });
+    }
   }, [id]);
 
   React.useEffect(() => {
     fetchComments();
   }, [fetchComments]);
 
-  return { ...commentState };
+  return { ...commentState, setCommentState };
 };
 
 export default useGetComments;

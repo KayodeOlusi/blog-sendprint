@@ -14,22 +14,24 @@ const useGetSinglePost = <T,>({ id }: Props) => {
   });
 
   const fetchPost = React.useCallback(async () => {
-    await PostsService.getSinglePost(id, {
-      onSuccess(data) {
-        setPostsState({
-          posts: data as T,
-          loading: false,
-          error: "",
-        });
-      },
-      onError() {
-        setPostsState({
-          posts: {} as T,
-          loading: false,
-          error: "Error fetching post. Please try again later.",
-        });
-      },
-    });
+    if (id) {
+      await PostsService.getSinglePost(id, {
+        onSuccess(data) {
+          setPostsState({
+            posts: data as T,
+            loading: false,
+            error: "",
+          });
+        },
+        onError() {
+          setPostsState({
+            posts: {} as T,
+            loading: false,
+            error: "Error fetching post. Please try again later.",
+          });
+        },
+      });
+    }
   }, [id]);
 
   React.useEffect(() => {
