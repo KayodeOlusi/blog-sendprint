@@ -8,8 +8,8 @@ type Props = {
 
 const useGetSinglePost = <T,>({ id }: Props) => {
   const [postsState, setPostsState] = React.useState<PostsState<T>>({
-    posts: {} as T,
-    loading: false,
+    posts: null as T,
+    loading: true,
     error: "",
   });
 

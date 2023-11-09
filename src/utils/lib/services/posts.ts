@@ -16,10 +16,22 @@ export class PostsService {
 
   static async getSinglePost(id: string, options?: ServiceOptions) {
     try {
-      const post = await httpClient.get<Post>(`/post/${id}`);
+      const post = await httpClient.get<Post>(`/posts/${id}`);
       options?.onSuccess?.(post);
 
       return post;
+    } catch (error) {
+      options?.onError?.(error);
+      return error;
+    }
+  }
+
+  static async getPostComments(id: string, options?: ServiceOptions) {
+    try {
+      const comments = await httpClient.get<Post>(`/posts/${id}/comments`);
+      options?.onSuccess?.(comments);
+
+      return comments;
     } catch (error) {
       options?.onError?.(error);
       return error;

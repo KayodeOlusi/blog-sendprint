@@ -3,6 +3,14 @@ export type ServiceOptions = {
   onError?: (error?: any) => void;
 };
 
+export type Comment = {
+  postId: number;
+  id: number;
+  name: string;
+  email: string;
+  body: string;
+};
+
 export type Post = {
   userId: number;
   id: number;
@@ -12,6 +20,12 @@ export type Post = {
 
 export type PostsState<K> = {
   posts: K;
+  loading: boolean;
+  error: string;
+};
+
+export type CommentsState<K> = {
+  comments: K;
   loading: boolean;
   error: string;
 };

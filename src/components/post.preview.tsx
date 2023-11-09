@@ -5,16 +5,16 @@ type Props = {
   post: Post;
 };
 
-const PostPreview = (props: Props) => {
+const PostPreview = ({ post }: Props) => {
   const navigate = useNavigate();
 
   return (
     <div
       className="shadow-sm p-4 my-4 space-y-3 cursor-pointer hover:shadow-md"
-      onClick={() => navigate(`/post/${props.post.id}`)}
+      onClick={() => navigate(`/post/${post.id}`)}
     >
-      <h3 className="text-lg capitalize font-medium">{props.post.title}</h3>
-      <p className="text-sm truncate">{props.post.body}</p>
+      <h3 className="text-lg capitalize font-medium">{post.title}</h3>
+      <p className="text-sm truncate">{post.body}</p>
     </div>
   );
 };

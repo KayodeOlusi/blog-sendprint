@@ -2,6 +2,7 @@ import "./App.css";
 import AppLayout from "./layout/app.layout";
 import HomePage from "./pages/home";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import SinglePostPage from "./pages/single-post";
 
 function App() {
   const router = createBrowserRouter([
@@ -17,7 +18,7 @@ function App() {
         {
           path: "/post/:id",
           errorElement: <div>404</div>,
-          element: <div>SinglePostPage</div>,
+          element: <SinglePostPage />,
         },
       ],
     },
