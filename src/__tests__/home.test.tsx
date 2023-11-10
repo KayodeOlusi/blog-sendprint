@@ -49,6 +49,19 @@ describe("Home Page Test", () => {
     expect(searchInput).toBeInTheDocument();
   });
 
+  it("should call onChange when the search input is changed", () => {
+    const homePageElement = getTestLayout(<HomePage />, "react-router");
+    render(homePageElement);
+
+    const searchInput = testHelpers.getInputByPlaceholderText(
+      "Search for a blog..."
+    ) as HTMLInputElement;
+
+    testHelpers.onChange(searchInput, "test");
+
+    expect(searchInput.value).toBe("test");
+  });
+
   describe("API calls", () => {
     it("should show a loading indicator when the posts are loading", () => {
       const homePageElement = getTestLayout(<HomePage />, "react-router");
