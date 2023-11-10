@@ -6,12 +6,12 @@ const Navbar = (props: Props) => {
   const navigate = useNavigate();
 
   return (
-    <div className="w-full bg-orange-100 p-3">
+    <div className="w-full bg-orange-100 p-3" role="banner">
       <h1
-        className="font-bold text-2xl cursor-pointer"
         onClick={() => navigate("/")}
+        className="font-bold text-2xl cursor-pointer"
       >
-        S-<i>Blog</i>
+        S-Blog
       </h1>
     </div>
   );

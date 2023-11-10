@@ -15,6 +15,7 @@ const CreateCommentForm = ({ onSubmit }: Props) => {
     >
       <input
         type="text"
+        value={comment}
         placeholder="Add a comment..."
         onChange={e => setComment(e.target.value)}
         className="border-[1px] border-gray-300 w-full p-2 rounded-sm text-sm"

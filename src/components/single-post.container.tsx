@@ -3,6 +3,7 @@ import CreateCommentForm from "./create-comment.form";
 import { DataBuilders } from "../utils/lib/data.builders";
 import { Comment, Post } from "../utils/lib/services/types";
 import useGetComments from "../utils/hooks/comments/useGetComment";
+import React from "react";
 
 type Props = {
   post: Post;
@@ -29,7 +30,7 @@ const SinglePostContainer = ({ post }: Props) => {
 
   return (
     <div>
-      <div className="single-post-container">
+      <div id="single-post-container">
         <h1 className="text-2xl capitalize underline font-medium">
           {post.title}
         </h1>
@@ -48,7 +49,10 @@ const SinglePostContainer = ({ post }: Props) => {
             {error}
           </p>
         )}
-        <div className="border-[1px] border-gray-100 p-3 space-y-5 h-[200px] overflow-y-scroll">
+        <div
+          id="comments-container"
+          className="border-[1px] border-gray-100 p-3 space-y-5 h-[200px] overflow-y-scroll"
+        >
           {comments.map(comment => (
             <SingleComment key={comment.id} comment={comment} />
           ))}

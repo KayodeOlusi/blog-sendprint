@@ -47,9 +47,6 @@ const HomePage = () => {
     });
   };
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
-
   return (
     <div>
       <h3 className="font-bold text-xl">All Blogs</h3>
@@ -61,10 +58,14 @@ const HomePage = () => {
         className="w-full my-4 border-[1px] border-gray-300 p-2 rounded-sm"
       />
 
-      <div className="post-container">
-        {allPosts.slice(pagination.start, pagination.limit).map(post => (
-          <PostPreview key={post.id} post={post} />
-        ))}
+      {loading && <div>Loading...</div>}
+      {error && <div>{error}</div>}
+
+      <div id="post-container">
+        {allPosts.length > 0 &&
+          allPosts
+            .slice(pagination.start, pagination.limit)
+            .map(post => <PostPreview key={post.id} post={post} />)}
       </div>
 
       <div className="flex text-center space-x-4 my-6">

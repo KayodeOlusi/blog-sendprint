@@ -10,6 +10,7 @@ const PostPreview = ({ post }: Props) => {
 
   return (
     <div
+      id="post-preview"
       className="shadow-sm p-4 my-4 space-y-3 cursor-pointer hover:shadow-md"
       onClick={() => navigate(`/post/${post.id}`)}
     >

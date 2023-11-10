@@ -1,4 +1,12 @@
-import { MatcherOptions, fireEvent, screen } from "@testing-library/react";
+import {
+  screen,
+  fireEvent,
+  MatcherOptions,
+  ByRoleMatcher,
+  Matcher,
+  act,
+} from "@testing-library/react";
+import ReactTestUtils from "react-dom/test-utils";
 
 class TestHelpers {
   // Getters
@@ -10,11 +18,11 @@ class TestHelpers {
     return screen.getByTestId(id, options);
   }
 
-  public getElementByRole(role: string, options?: MatcherOptions) {
+  public getElementByRole(role: ByRoleMatcher, options?: MatcherOptions) {
     return screen.getByRole(role, options);
   }
 
-  public getInputByPlaceholderText(text: string, options?: MatcherOptions) {
+  public getInputByPlaceholderText(text: Matcher, options?: MatcherOptions) {
     return screen.getByPlaceholderText(text, options);
   }
 
@@ -23,12 +31,23 @@ class TestHelpers {
   }
 
   // Actions
-  public clickElement(element: HTMLElement | HTMLTextAreaElement) {
+  public clickElement(element: HTMLElement) {
     return fireEvent.click(element);
   }
 
   public onChange(element: HTMLElement, value: string) {
     return fireEvent.change(element, { target: { value } });
+  }
+
+  public onSubmit(element: HTMLFormElement) {
+    return fireEvent.submit(element);
+  }
+
+  public submitAndUpdate(
+    element: HTMLFormElement,
+    options?: ReactTestUtils.SyntheticEventData
+  ) {
+    return act(() => ReactTestUtils.Simulate.submit(element, options));
   }
 }
 

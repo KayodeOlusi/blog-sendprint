@@ -8,7 +8,7 @@ const AppLayout = (props: Props) => {
   return (
     <div>
       <Navbar />
-      <div className="max-w-screen-lg mx-auto mt-3">
+      <div className="max-w-screen-lg mx-auto mt-3 px-2">
         <Outlet />
       </div>
     </div>
